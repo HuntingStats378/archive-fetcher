@@ -1,12 +1,5 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-
-browser = await puppeteer.launch({
-  headless: true,
-  executablePath: puppeteer.executablePath(), // 👈 this points to bundled Chromium
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
-});
-
+import express from 'express';
+import puppeteer from 'puppeteer';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +13,12 @@ app.get('/api/subscriber-count', async (req, res) => {
 
   let browser;
   try {
+    browser = await puppeteer.launch({
+      headless: true,
+      executablePath: puppeteer.executablePath(), // Use Puppeteer's bundled Chromium
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
@@ -36,5 +35,5 @@ app.get('/api/subscriber-count', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ API server running at http://localhost:${PORT}`);
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
