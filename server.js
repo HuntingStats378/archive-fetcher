@@ -1,6 +1,13 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 
+browser = await puppeteer.launch({
+  headless: true,
+  executablePath: puppeteer.executablePath(), // 👈 this points to bundled Chromium
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,11 +20,6 @@ app.get('/api/subscriber-count', async (req, res) => {
 
   let browser;
   try {
-    browser = await puppeteer.launch({
-      headless: 'true',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
