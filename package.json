@@ -1,17 +1,21 @@
 {
-  "name": "subscriber-api",
+  "name": "subscriber-count-api",
   "version": "1.0.0",
+  "description": "API to fetch subscriber count with Puppeteer",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
     "postinstall": "puppeteer install"
   },
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^21.3.8"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "express": "^5.1.0",
-    "puppeteer": "^24.15.0"
-  }
+  "license": "ISC"
 }
