@@ -15,7 +15,7 @@ app.get('/api/subscriber-count', async (req, res) => {
   try {
     browser = await puppeteer.launch({
       headless: true,
-      executablePath: puppeteer.executablePath(), // Use Puppeteer's bundled Chromium
+      executablePath: puppeteer.executablePath(),
       args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
@@ -27,7 +27,7 @@ app.get('/api/subscriber-count', async (req, res) => {
 
     res.json({ url, count });
   } catch (err) {
-    console.error(err);
+    console.error('Error fetching subscriber count:', err);
     res.status(500).json({ error: 'Failed to extract subscriber count', details: err.message });
   } finally {
     if (browser) await browser.close();
